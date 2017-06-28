@@ -1,0 +1,8 @@
+.DS_Store
+
+*.js.map
+
+/platforms
+/hooks
+/lib
+/node_modules
