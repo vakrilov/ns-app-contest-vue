@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "455172602613",
+    "firebase_url": "https://vuecontest.firebaseio.com",
+    "project_id": "vuecontest",
+    "storage_bucket": "vuecontest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:455172602613:android:37b764d18d7d835d",
+        "android_client_info": {
+          "package_name": "org.nativescript.nsappcontestvue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "455172602613-3thbf84q1q1svlt8frqcurgss8sr51tb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRk7XCybmh8WSU58CHm79p-7YXSYxVNq0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

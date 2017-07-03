@@ -1,11 +1,12 @@
 @import 'nativescript-theme-core/css/core.light.css';
 
 /* Your CSS goes here */
-
-.even {
-    color: red;
+ActivityIndicator {
+    width: 60;
+    height: 60;
 }
 
-.odd {
-    color: blue;
+.contest-entry {
+    margin: 15;
+    background-color: lightcoral;
 }

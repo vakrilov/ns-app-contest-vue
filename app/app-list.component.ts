@@ -11,6 +11,7 @@ export const AppListComponent = {
         }
     },
     template: `
+    <grid-layout>
         <scroll-view>
             <wrap-layout orientation="horizontal" :itemWidth="itemWidth">
                 <label :text="'Showing id:' + contestId"></label>
@@ -22,6 +23,8 @@ export const AppListComponent = {
                 </grid-layout>
             </wrap-layout>
         </scroll-view>
+        <activity-indicator busy="true" v-if="loading"></activity-indicator>
+    </grid-layout>
     `,
     methods: {
         appTapped(app: AppEntry) {
@@ -33,7 +36,7 @@ export const AppListComponent = {
         setTimeout(() => {
             this.items = getApps();
             this.loading = false;
-        }, 500);
+        }, 1000);
     },
     mounted() {
         console.log("AppListComponent mounted: " + this.contestId);

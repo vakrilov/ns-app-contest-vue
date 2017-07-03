@@ -3,7 +3,7 @@ import * as  VueRouter from 'vue-router';
 Vue.use(VueRouter);
 (<any>global).process = { env: {} } // hack! a build process should replace process.env's with static strings.
 
-import { AppEntry, getApps, getContests } from "./model";
+import { AppEntry, getApps, getContests, init } from "./model";
 import { screen } from "tns-core-modules/platform";
 import { View } from "tns-core-modules/ui/core/view";
 
@@ -30,16 +30,16 @@ router.replace('/login');
 const app = new Vue({
     router,
     template: `
-        <page>
+        <page actionBarHidden="true">
             <stack-layout>
                 <stack-layout orientation="horizontal">
-                    <button @tap="$router.replace('/login')">login</button>
-                    <button @tap="$router.replace('/contests')">contests</button>
-                    <button @tap="$router.replace('/apps/1')">apps</button>
-                    <button @tap="dump()">dump</button>
+                    <button margin="0 2" @tap="$router.replace('/login')">login</button>
+                    <button margin="0 2" @tap="$router.replace('/contests')">home</button>
+                    <button margin="0 2" @tap="$router.replace('/apps/vue2017')">apps</button>
+                    <button margin="0 2" @tap="dump()">dump</button>
                 </stack-layout>
                 
-                <label style="text-align: center">Current route: {{ $route.fullPath }}</label>
+                <label style="text-align: center" margin="0 0 10 0">Current route: {{ $route.fullPath }}</label>
                 
                 <router-view></router-view>
             </stack-layout>
@@ -53,6 +53,10 @@ const app = new Vue({
         dump() {
             dumpViewHierarchy();
         }
+    },
+    mounted() {
+        console.log("App mounted ...");
+        init();
     }
 });
 app.$start()
