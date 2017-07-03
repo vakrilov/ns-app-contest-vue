@@ -29,8 +29,12 @@ export function getApps(): AppEntry[] {
 export function init() {
     console.log("[Firebase] Initalizing ...");
     firebase.init({
-        // Optionally pass in properties for database, authentication and cloud messaging,
-        // see their respective docs.
+        onAuthStateChanged: function (data) { // optional but useful to immediately re-logon the user when he re-visits your app
+            console.log(data.loggedIn ? "[Firebase] Logged in to firebase" : "[Firebase] Logged out from firebase");
+            if (data.loggedIn) {
+                console.log("[Firebase] user's email address: " + (data.user.email ? data.user.email : "N/A"));
+            }
+        }
     }).then(
         (instance) => {
             console.log("[Firebase] Init done");
@@ -67,9 +71,23 @@ export function getContests(): Promise<Contest[]> {
             })
         }
         return contests;
-    }).catch((error) => { 
+    }).catch((error) => {
         console.log("[Firebase] getting contests error: " + error);
-     });
+    });
 }
 
 
+export function login(email: string, password: string): Promise<firebase.User> {
+    return firebase.login({
+        type: firebase.LoginType.PASSWORD,
+        passwordOptions: { email, password }
+    })
+}
+
+export function signup(email: string, password: string): Promise<firebase.CreateUserResult> {
+    return firebase.createUser({ email, password })
+}
+
+export function logout(): Promise<any> {
+    return firebase.logout();
+}
