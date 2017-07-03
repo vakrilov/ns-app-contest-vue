@@ -1,6 +1,9 @@
 .DS_Store
 
 *.js.map
+*.js
+
+!app/samples/*.js
 
 /platforms
 /hooks
