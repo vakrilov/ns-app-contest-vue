@@ -1,5 +1,6 @@
 import { screen } from "tns-core-modules/platform";
-import { AppEntry, getApps, getContests } from "./model";
+import { AppEntry, getApps, toggleVote } from "./backend.service";
+import { currentUser } from "./user.service";
 
 export const AppListComponent = {
     props: [ "contestId" ],
@@ -7,19 +8,18 @@ export const AppListComponent = {
         return {
             itemWidth: screen.mainScreen.widthDIPs / 2,
             items: [],
-            loading: true
+            loading: true,
+            currentUser: currentUser
         }
     },
     template: `
     <grid-layout>
         <scroll-view>
             <wrap-layout orientation="horizontal" :itemWidth="itemWidth">
-                <label :text="'Showing id:' + contestId"></label>
-                <label :text="'Loading:' + loading"></label>
-                
-                <grid-layout rows="auto auto" v-for="app in items" key="app.id" @tap="appTapped(app)" backgroundColor="lightgreen" margin="8">
-                    <label :text="app.name" row="0" class="h2"></label>
+                <grid-layout rows="auto auto auto" v-for="app in items" key="app.id" backgroundColor="lightgreen" margin="8">
+                    <label :text="app.name" row="0" class="h2" textWrap="true"></label>
                     <label :text="'by ' + app.author" row="1" class="h2"></label>
+                    <button text="vote" @tap="vote(app)" row="2"></button>
                 </grid-layout>
             </wrap-layout>
         </scroll-view>
@@ -27,16 +27,21 @@ export const AppListComponent = {
     </grid-layout>
     `,
     methods: {
-        appTapped(app: AppEntry) {
-            alert('Tapped: ' + app.name);
-        }
+        vote(app: AppEntry) {
+            if (currentUser.id) {
+                toggleVote(this.contestId, app.id, currentUser.id);
+            } else {
+                alert("Cannot vot if you are not logged in");
+            }
+        },
+
     },
     created() {
         console.log("AppListComponent created: " + this.contestId);
-        setTimeout(() => {
-            this.items = getApps();
+        this.items = getApps(this.contestId).then((apps) => {
+            this.items = apps
             this.loading = false;
-        }, 1000);
+        });
     },
     mounted() {
         console.log("AppListComponent mounted: " + this.contestId);

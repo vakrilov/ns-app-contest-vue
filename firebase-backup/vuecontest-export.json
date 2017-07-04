@@ -1,0 +1,33 @@
+{
+  "contests" : {
+    "summer2016" : {
+      "hasEnded" : true,
+      "name" : "Late Summer 2016"
+    },
+    "vue2017" : {
+      "hasEnded" : false,
+      "name" : "VueJS Summer 2017"
+    },
+    "winter2016" : {
+      "hasEnded" : true,
+      "name" : "Holiday App Winter 2016"
+    }
+  },
+  "apps" : {
+    "summer2016" : {
+        "summer2016-1" : { "name": "summer2016 first app", "author": "Alex Vakrilov" },
+        "summer2016-2" : { "name": "summer2016 second app", "author": "Igor" },
+        "summer2016-3" : { "name": "summer2016 third app", "author": "Brad" }
+    },
+    "vue2017" : { 
+        "vue2017-1" : { "name": "vue2017 first app", "author": "Alex Vakrilov" },
+        "vue2017-2" : { "name": "vue2017 second app", "author": "Igor" },
+        "vue2017-3" : { "name": "vue2017 third app", "author": "Brad" }
+    },
+    "winter2016" : {
+        "winter2016-1" : { "name": "winter2016 first app", "author": "Alex Vakrilov" },
+        "winter2016-2" : { "name": "winter2016 second app", "author": "Igor" },
+        "winter2016-3" : { "name": "winter2016 third app", "author": "Brad" }
+     }
+  }
+}

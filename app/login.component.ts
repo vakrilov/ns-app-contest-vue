@@ -1,4 +1,4 @@
-import { login, signup, logout } from "./model";
+import { login, signup, logout } from "./user.service";
 export const LoginComponent = {
     data: () => {
         return {
@@ -15,7 +15,7 @@ export const LoginComponent = {
             <button @tap="login()">LOGIN</button>
             <button @tap="signup()">SIGNUP</button>
             <button @tap="logout()">LOGOUT</button>
-            <label :text="message"></label>
+            <label :text="message" textWrap="true"></label> 
         </stack-layout>
     `,
     methods: {
