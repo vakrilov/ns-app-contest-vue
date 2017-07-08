@@ -6,10 +6,18 @@ ActivityIndicator {
     height: 60;
 }
 
-.contest-card {
+.card {
     margin: 6 12;
     elevation: 12;
     radius: 6;
+}
+
+.ended {
+    color: red;
+}
+
+.current {
+    color: green;
 }
 
 Page {
