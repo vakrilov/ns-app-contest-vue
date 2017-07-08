@@ -8,10 +8,10 @@ import * as firebase from "nativescript-plugin-firebase";
 import { screen } from "tns-core-modules/platform";
 import { View } from "tns-core-modules/ui/core/view";
 
-import { LoginComponent } from "./login.component";
-import { AppListComponent } from "./app-list.component";
-import { ContestListComponent } from "./contest-list.component";
-import { currentUser } from "./user.service";
+import { LoginComponent } from "./components/login.component";
+import { AppListComponent } from "./components/app-list.component";
+import { ContestListComponent } from "./components/contest-list.component";
+import { currentUser } from "./services/user.service";
 
 
 import { dumpView, dumpViewHierarchy } from "./debug";

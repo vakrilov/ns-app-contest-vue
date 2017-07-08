@@ -1,4 +1,4 @@
-import { login, signup, logout } from "./user.service";
+import { login, signup, logout } from "../services/user.service";
 export const LoginComponent = {
     data: () => {
         return {

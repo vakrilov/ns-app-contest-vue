@@ -1,4 +1,4 @@
-import { getContests } from "./backend.service";
+import { getContests } from "../services/backend.service";
 
 export const ContestListComponent = {
     props: [],
