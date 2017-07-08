@@ -6,8 +6,12 @@ ActivityIndicator {
     height: 60;
 }
 
-.contest-entry {
-    border-radius: 2;
-    border-width: 1;
-    border-color: gray;
+.contest-card {
+    margin: 6 12;
+    elevation: 12;
+    radius: 6;
+}
+
+Page {
+    background-color: #ECECEC;
 }

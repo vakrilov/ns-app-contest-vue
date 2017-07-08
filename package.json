@@ -13,6 +13,7 @@
     }
   },
   "dependencies": {
+    "nativescript-cardview": "^2.0.2",
     "nativescript-plugin-firebase": "^4.0.3",
     "nativescript-theme-core": "~1.0.4",
     "nativescript-vue": "^0.1.1",

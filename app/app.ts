@@ -3,6 +3,8 @@ import * as VueRouter from 'vue-router';
 Vue.use(VueRouter);
 (<any>global).process = { env: {} } // hack! a build process should replace process.env's with static strings.
 
+Vue.registerElement("CardView", () => require("nativescript-cardview").CardView);
+
 import * as firebase from "nativescript-plugin-firebase";
 
 import { screen } from "tns-core-modules/platform";
