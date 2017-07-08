@@ -1,4 +1,17 @@
+const Vue = require('nativescript-vue/dist/index')
+
 import { getContests } from "../services/backend.service";
+
+Vue.component('contest-component', {
+    props: [ 'contest' ],
+    template: `
+        <grid-layout rows="auto auto auto" @tap="$emit('selected')" class="contest-entry">
+            <image :src="contest.imageUrl" height="160" stretch="aspectFill"></image>
+            <label :text="contest.name" row="1" class="h2"></label>
+            <label :text="contest.description" row="2" textWrap="true"></label>
+        </grid-layout>
+    `
+})
 
 export const ContestListComponent = {
     props: [],
@@ -10,23 +23,18 @@ export const ContestListComponent = {
     },
     template: `
         <grid-layout>
-            <stack-layout>
-                <grid-layout rows="auto auto" v-for="contest in items" key="app.id" @tap="$router.replace('/apps/' + contest.id)" class="contest-entry">
-                    <label :text="contest.name" row="0" class="h2"></label>
-                </grid-layout>
-            </stack-layout>
+            <list-view :items="items">
+                <template scope="item">
+                    <contest-component :contest="item" @selected="$router.replace('/apps/' + item.id)"></contest-component>
+                </template>
+            </list-view>
             <activity-indicator busy="true" v-if="loading"></activity-indicator>
         </grid-layout>
     `,
-    methods: {
-    },
     created() {
         getContests().then((result) => {
             this.items = result;
             this.loading = false;
         });
-    },
-    mounted() {
-        console.log("AppListComponent mounted: " + this.contestId);
-    },
+    }
 };

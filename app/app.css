@@ -7,6 +7,7 @@ ActivityIndicator {
 }
 
 .contest-entry {
-    margin: 15;
-    background-color: lightcoral;
+    border-radius: 2;
+    border-width: 1;
+    border-color: gray;
 }

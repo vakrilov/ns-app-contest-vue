@@ -17,8 +17,9 @@ export interface AppEntry {
 export interface Contest {
     id: string;
     name: string;
-    hasEnded?: boolean;
-    entries?: AppEntry[];
+    description: string;
+    imageUrl: string;
+    hasEnded: boolean;
 }
 
 let contestsCache: Contest[];
@@ -54,10 +55,13 @@ export function getContests(useCache = true): Promise<Contest[]> {
             const data = <firebase.FBData>result;
             const contests: Contest[] = [];
             for (let id in data.value) {
+                const fbContest = data.value[ id ];
                 contests.push({
                     id,
-                    name: data.value[ id ].name,
-                    hasEnded: data.value[ id ].hasEnded
+                    name: fbContest.name,
+                    description: fbContest.description,
+                    imageUrl: fbContest.imageUrl,
+                    hasEnded: fbContest.hasEnded,
                 })
             }
             contestsCache = contests;

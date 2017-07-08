@@ -1,5 +1,5 @@
 import * as Vue from 'nativescript-vue/dist/index';
-import * as  VueRouter from 'vue-router';
+import * as VueRouter from 'vue-router';
 Vue.use(VueRouter);
 (<any>global).process = { env: {} } // hack! a build process should replace process.env's with static strings.
 
@@ -63,7 +63,7 @@ console.log("[Firebase] Initalizing ...");
 firebase.init().then(
     (instance) => {
         console.log("[Firebase] Init done -> starting app");
-        router.replace('/login');
+        router.replace('/contests');
     },
     (error) => {
         console.log("[Firebase] Init error: " + error);
