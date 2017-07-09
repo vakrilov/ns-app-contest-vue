@@ -20,6 +20,26 @@ ActivityIndicator {
     color: green;
 }
 
+.icon {
+    width: 24;
+    height: 24;
+    margin: 8;
+}
+
+.voted {
+    color: #E21E5C;
+    font-size: 20;
+    vertical-align: center;
+    margin-right: 16;
+}
+
+.not-voted {
+    color: gray;
+    font-size: 20;    
+    vertical-align: center;
+    margin-right: 16;
+}
+
 Page {
     background-color: #ECECEC;
 }
