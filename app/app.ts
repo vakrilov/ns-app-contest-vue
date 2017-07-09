@@ -9,6 +9,8 @@ import * as firebase from "nativescript-plugin-firebase";
 
 import { screen } from "tns-core-modules/platform";
 import { View } from "tns-core-modules/ui/core/view";
+import { Page } from "tns-core-modules/ui/page";
+import { ActionItem } from "tns-core-modules/ui/action-bar";
 
 import { LoginComponent } from "./components/login.component";
 import { AppListComponent } from "./components/app-list.component";
@@ -20,20 +22,36 @@ import { dumpView, dumpViewHierarchy } from "./debug";
 // import * as trace from "trace";
 // trace.setCategories("NativeLifecycle, ViewHierarchy");
 // trace.enable();
+let rootPage: Page;
+let loginAction: ActionItem;
 
 const router = new VueRouter({
     routes: [
-        { path: '/login', component: LoginComponent },
-        { path: '/contests', component: ContestListComponent },
-        { path: '/apps/:contestId', component: AppListComponent, props: true },
+        { path: '/login', component: LoginComponent, meta: { title: "LOGIN", hideLogin: true } },
+        { path: '/contests', component: ContestListComponent, meta: { title: "Contests" } },
+        { path: '/apps/:contestId', component: AppListComponent, props: true, meta: { title: "Apps" } },
         { path: '*', redirect: '/login' }
     ]
+})
+
+
+router.afterEach((to, from) => {
+    console.log("router.afterEach to: " + to.meta.title);
+    const meta = to.meta;
+    rootPage.actionBar.title = meta.title;
+    if (meta.hideLogin) {
+        loginAction.visibility = "collapsed";
+    } else {
+        loginAction.visibility = "visible";
+        loginAction.text = currentUser.id ? "LOGOUT" : "LOGIN";
+    }
+
 })
 
 const app = new Vue({
     router,
     template: `
-        <page actionBarHidden="true">
+        <page ref="page">
             <stack-layout>
                 <stack-layout orientation="horizontal" horizontalAlignment="center" margin="8">
                     <button margin="0 2" @tap="$router.replace('/login')">login</button>
@@ -55,7 +73,17 @@ const app = new Vue({
         }
     },
     data: {
-        currentUser 
+        currentUser
+    },
+    mounted: function () {
+        rootPage = <Page>this.$refs.page.nativeView;
+
+        loginAction = new ActionItem();
+        loginAction.text = "LOGIN";
+        loginAction.on("tap", () => {
+            this.$router.replace('/login');
+        });
+        rootPage.actionBar.actionItems.addItem(loginAction);
     }
 });
 app.$start();
