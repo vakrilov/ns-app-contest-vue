@@ -1,4 +1,4 @@
-import { login, signup, logout } from "../services/user.service";
+import { login, signup } from "../services/user.service";
 export const LoginComponent = {
     data: () => {
         return {
@@ -9,12 +9,11 @@ export const LoginComponent = {
         }
     },
     template: `
-        <stack-layout>
+        <stack-layout margin="16">
             <text-field hint="email" v-model="email"></text-field>
             <text-field hint="password" v-model="password" secure="true"></text-field>
-            <button @tap="login()">LOGIN</button>
-            <button @tap="signup()">SIGNUP</button>
-            <button @tap="logout()">LOGOUT</button>
+            <button @tap="login()" class="btn btn-primary">LOGIN</button>
+            <button @tap="signup()" class="btn btn-outline">SIGNUP</button>
             <label :text="message" textWrap="true"></label> 
         </stack-layout>
     `,
@@ -29,6 +28,10 @@ export const LoginComponent = {
                 (result) => {
                     console.log("[Firebase] login success: " + JSON.stringify(result));
                     this.loading = false;
+
+                    console.log("Redirecting to contests ...");
+                    
+                    this.$router.replace("/contests");
                     return result;
                 },
                 (errorMessage) => {
@@ -50,24 +53,6 @@ export const LoginComponent = {
                 },
                 (errorMessage) => {
                     console.log("[Firebase] signup error: " + errorMessage);
-                    this.message = errorMessage;
-                    this.loading = false;
-                });
-        },
-
-        logout() {
-            console.log("logging out... ");
-
-            this.message = "";
-            this.loading = true;
-
-            logout().then(
-                (result) => {
-                    console.log("[Firebase] logout success: " + JSON.stringify(result));
-                    return result;
-                },
-                (errorMessage) => {
-                    console.log("[Firebase] logout error: " + errorMessage);
                     this.message = errorMessage;
                     this.loading = false;
                 });

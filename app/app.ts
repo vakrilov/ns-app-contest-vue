@@ -15,7 +15,7 @@ import { ActionItem } from "tns-core-modules/ui/action-bar";
 import { LoginComponent } from "./components/login.component";
 import { AppListComponent } from "./components/app-list.component";
 import { ContestListComponent } from "./components/contest-list.component";
-import { currentUser } from "./services/user.service";
+import { currentUser, logout } from "./services/user.service";
 
 
 import { dumpView, dumpViewHierarchy } from "./debug";
@@ -39,14 +39,17 @@ router.afterEach((to, from) => {
     console.log("router.afterEach to: " + to.meta.title);
     const meta = to.meta;
     rootPage.actionBar.title = meta.title;
-    if (meta.hideLogin) {
+    updateLoginAction(meta.hideLogin)
+})
+
+function updateLoginAction(hideLogin: boolean) {
+    if (hideLogin) {
         loginAction.visibility = "collapsed";
     } else {
         loginAction.visibility = "visible";
         loginAction.text = currentUser.id ? "LOGOUT" : "LOGIN";
     }
-
-})
+}
 
 const app = new Vue({
     router,
@@ -81,7 +84,22 @@ const app = new Vue({
         loginAction = new ActionItem();
         loginAction.text = "LOGIN";
         loginAction.on("tap", () => {
-            this.$router.replace('/login');
+            if (!currentUser.id) {
+                this.$router.replace('/login');
+            } else {
+                console.log("logging out... ");
+                logout().then(
+                    (result) => {
+                        console.log("[Firebase] logout success: " + JSON.stringify(result));
+                        console.log("currentUser: " + JSON.stringify(currentUser))
+                        updateLoginAction(false);
+                        return result;
+                    },
+                    (errorMessage) => {
+                        console.log("[Firebase] logout error: " + errorMessage);
+                        updateLoginAction(false);
+                    });
+            }
         });
         rootPage.actionBar.actionItems.addItem(loginAction);
     }
