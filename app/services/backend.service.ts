@@ -6,7 +6,7 @@ export interface AppEntry {
     contestId: string;
     name: string;
     author: string;
-    isWinner?: boolean;
+    isWinner: boolean;
     mainImageUrl?: string;
     screenshots?: string[];
 
@@ -77,7 +77,8 @@ function createApp(id: string, contestId: string, fbApp: any): AppEntry {
         id,
         contestId,
         name: fbApp.name,
-        author: fbApp.author
+        author: fbApp.author,
+        isWinner: fbApp.isWinner
     };
 
     updateVotes(app, fbApp.votes);

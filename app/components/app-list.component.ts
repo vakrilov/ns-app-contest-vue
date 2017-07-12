@@ -27,6 +27,9 @@ Vue.component('app-component', {
             <grid-layout rows="auto auto auto auto auto auto" columns="* auto" @tap="$emit('selected')">
                 <image :src="'https://d2odgkulk9w7if.cloudfront.net/images/default-source/default-album/screen696x6961046632a7b776b26a649ff04000922f2.jpeg'" height="160" stretch="aspectFill" colSpan="2"></image>
                 <label :text="app.name" row="1" class="h2" margin="24 16 0 16" textWrap="true"></label>
+                <label row="1" col="1" class="font-weight-bold pull-right current"
+                    margin="32 16 0 0" :text="app.isWinner ? 'WINNER' : ''"></label>
+
                 <label :text="'by ' + app.author" row="2" textWrap="true" margin="12 16 24 16" colSpan="2"></label>
 
                 <stack-layout row="3" horizontalAlignment="right" orientation="horizontal">
