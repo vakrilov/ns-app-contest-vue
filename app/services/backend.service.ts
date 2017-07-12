@@ -6,9 +6,9 @@ export interface AppEntry {
     contestId: string;
     name: string;
     author: string;
+    description: string;
     isWinner: boolean;
     mainImageUrl?: string;
-    screenshots?: string[];
 
     votes?: number;
     userVoted?: boolean;
@@ -78,7 +78,9 @@ function createApp(id: string, contestId: string, fbApp: any): AppEntry {
         contestId,
         name: fbApp.name,
         author: fbApp.author,
-        isWinner: fbApp.isWinner
+        isWinner: fbApp.isWinner,
+        description: fbApp.description,
+        mainImageUrl: fbApp.mainImageUrl
     };
 
     updateVotes(app, fbApp.votes);
@@ -144,6 +146,7 @@ export function toggleVote(app: AppEntry) {
 
 function updateVotes(app: AppEntry, fbVotes: object) {
     console.log("Updating votes for: " + app.id);
+    console.dir(fbVotes);
 
     let votesCount = 0;
     let userVoted = false;
