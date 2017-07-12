@@ -146,7 +146,6 @@ export function toggleVote(app: AppEntry) {
 
 function updateVotes(app: AppEntry, fbVotes: object) {
     console.log("Updating votes for: " + app.id);
-    console.dir(fbVotes);
 
     let votesCount = 0;
     let userVoted = false;

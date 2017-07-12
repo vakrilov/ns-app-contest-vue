@@ -4,6 +4,9 @@ import { screen } from "tns-core-modules/platform";
 import { AppEntry, getApps, toggleVote, startAppListeners, stopAppListeners } from "../services/backend.service";
 import { currentUser } from "../services/user.service";
 
+import { Image } from "tns-core-modules/ui/image";
+import { Page } from "tns-core-modules/ui/page";
+import { topmost } from "tns-core-modules/ui/frame";
 
 Vue.component('app-component', {
     props: [ 'app' ],
@@ -25,7 +28,7 @@ Vue.component('app-component', {
     <grid-layout>
         <card-view class="card">
             <grid-layout rows="auto auto auto auto auto auto" columns="* auto" @tap="$emit('selected')">
-                <image :src="app.mainImageUrl" height="160" stretch="aspectFill" colSpan="2"></image>
+                <image :src="app.mainImageUrl" height="160" stretch="aspectFill" @tap="$emit('expand')" colSpan="2"></image>
                 <label :text="app.name" row="1" class="h2" margin="24 16 0 16" textWrap="true"></label>
                 <label row="1" col="1" class="font-weight-bold pull-right current"
                     margin="32 16 0 0" :text="app.isWinner ? 'WINNER' : ''"></label>
@@ -35,7 +38,7 @@ Vue.component('app-component', {
                 <label :text="app.description" row="3" textWrap="true" margin="12 16 24 16" colSpan="2"></label>
 
                 <stack-layout row="4" horizontalAlignment="right" orientation="horizontal" colSpan="2">
-                    <image src="res://fullscreen" class="icon"></image>
+                    <image src="res://fullscreen" class="icon" @tap="$emit('expand')"></image>
                 
                     <grid-layout columns="auto auto" @tap="$emit('vote')">
                         <image :src="voteImageSrc" class="icon"></image>
@@ -67,7 +70,7 @@ export const AppListComponent = {
     <grid-layout>
         <scroll-view>
             <stack-layout>
-                <app-component v-for="item in items" key="item.id" :app="item" @vote="vote(item)"></app-component>
+                <app-component v-for="item in items" key="item.id" :app="item" @vote="vote(item)" @expand="showFullImage(item)"></app-component>
             </stack-layout>
         </scroll-view>
         <activity-indicator busy="true" v-if="loading" class="activity-indicator"></activity-indicator>
@@ -81,7 +84,18 @@ export const AppListComponent = {
                 alert("Cannot vot if you are not logged in");
             }
         },
+        showFullImage(app: AppEntry) {
+            const currentPage = topmost().currentPage
+            let previewPage = new Page()
 
+            let image = new Image()
+            image.margin = 16;
+            image.src = app.mainImageUrl;
+            image.on("tap", () => { previewPage.closeModal() });
+            previewPage.content = image;
+
+            topmost().currentPage.showModal(previewPage, null, null, false);
+        }
     },
     created() {
         console.log("AppListComponent created: " + this.contestId);
