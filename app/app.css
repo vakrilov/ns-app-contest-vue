@@ -1,4 +1,5 @@
-@import 'nativescript-theme-core/css/core.light.css';
+/*@import 'nativescript-theme-core/css/core.light.css';*/
+@import 'nativescript-theme-core/css/grey.css';
 
 /* Your CSS goes here */
 ActivityIndicator {
@@ -42,4 +43,9 @@ ActivityIndicator {
 
 Page {
     background-color: #ECECEC;
+}
+
+ActionBar {
+    background-color:#5c687c;
+    color:#fff;
 }

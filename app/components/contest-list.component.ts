@@ -35,7 +35,7 @@ export const ContestListComponent = {
                     <contest-component :contest="item" @selected="$router.replace('/apps/' + item.id)"></contest-component>
                 </template>
             </list-view>
-            <activity-indicator busy="true" v-if="loading"></activity-indicator>
+            <activity-indicator busy="true" v-if="loading" class="activity-indicator"></activity-indicator>
         </grid-layout>
     `,
     created() {

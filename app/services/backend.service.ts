@@ -124,6 +124,7 @@ export function getApps(contestId: string, useCache = true): Promise<AppEntry[]>
         });
 }
 
+
 export function toggleVote(app: AppEntry) {
     if (!currentUser) {
         throw new Error("Cannot vote if note logged in");
