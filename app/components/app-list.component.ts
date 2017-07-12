@@ -65,7 +65,7 @@ export const AppListComponent = {
                 <app-component v-for="item in items" key="item.id" :app="item" @vote="vote(item)"></app-component>
             </stack-layout>
         </scroll-view>
-        <activity-indicator busy="true" v-if="loading"></activity-indicator>
+        <activity-indicator busy="true" v-if="loading" class="activity-indicator"></activity-indicator>
     </grid-layout>
     `,
     methods: {
